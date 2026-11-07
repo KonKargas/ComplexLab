@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ComplexLab | Complex Number Visualizer</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+	<link rel="shortcut icon" href="images/favicon.ico?v=2">
+<link rel="stylesheet" th:href="@{/css/DashboardStyle.css}">
+<link rel="stylesheet" th:href="@{/css/VisualizerStyle.css}">
+</head>
+<body><div class="app-layout"><div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div th:replace="~{fragments/sidebar :: sidebar('visualizer')}"></div>
+<div class="app-main"><div th:replace="~{fragments/topbar :: topbar('Complex Number Visualizer')}"></div>
+<main class="app-content"><div class="content-heading"><h2>Complex Number Visualizer</h2><p>Explore how complex numbers are represented as vectors, including their real and imaginary components.</p></div>
+<div class="viz-layout"><section class="viz-card"><h3>Plot your numbers</h3><div class="viz-inputs">
+<fieldset><legend>Complex number A</legend><label for="aReal">Real</label><input id="aReal" type="number" step="any" value="3"><label for="aImag">Imaginary</label><input id="aImag" type="number" step="any" value="2"></fieldset>
+<fieldset><legend>Complex number B</legend><label for="bReal">Real</label><input id="bReal" type="number" step="any" value="1"><label for="bImag">Imaginary</label><input id="bImag" type="number" step="any" value="-4"></fieldset></div>
+<label for="showOperation">Show vector operation</label><select id="showOperation"><option value="none">Only A and B</option><option value="add" selected>A + B</option><option value="subtract">A − B</option><option value="multiply">A × B</option></select>
+<label for="zoom">Graph scale: <output id="scaleValue">6</output> units each side</label><input id="zoom" type="range" min="2" max="30" value="6" step="1">
+<p class="viz-note">Blue = A, amber = B, green = result. Drag a vector endpoint to change its value.</p>
+<div id="vizError" class="viz-error" role="alert" hidden></div></section>
+<section class="viz-card viz-chart-card"><div class="viz-chart-head"><h3>Argand diagram</h3><button id="resetView" type="button">Reset values</button></div>
+<canvas id="complexPlane" aria-label="Graph of complex numbers in the complex plane" role="img"></canvas><div class="viz-results" id="vizResults" aria-live="polite"></div></section></div>
+</main><div th:replace="~{fragments/footer :: footer}"></div></div></div>
+<script th:src="@{/js/Dashboard.js}" defer></script><script th:src="@{/js/Visualizer.js}" defer></script>
+</body></html>

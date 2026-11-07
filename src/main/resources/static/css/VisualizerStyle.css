@@ -1,0 +1,18 @@
+.viz-layout{display:grid;grid-template-columns:minmax(280px,340px) minmax(0,1fr);gap:22px;align-items:start}
+.viz-card{min-width:0;background:var(--surface,#1e293b);border:1px solid var(--border,#334155);border-radius:14px;padding:24px}
+.viz-card h3{margin:0 0 20px;font-size:19px}.viz-inputs{display:grid;gap:16px}
+.viz-card fieldset{border:1px solid #475569;border-radius:10px;padding:15px;min-width:0;margin:0}
+.viz-card legend{padding:0 8px;color:#93c5fd;font-weight:600}
+.viz-card label{display:block;font-size:13px;color:#cbd5e1;margin:12px 0 6px}
+.viz-card input[type=number],.viz-card select{width:100%;background:#101b2d;border:1px solid #475569;border-radius:8px;padding:11px;color:#e2e8f0;font:inherit}
+.viz-card input[type=range]{width:100%;accent-color:#60a5fa}
+.viz-note{font-size:13px;color:#94a3b8;line-height:1.6}
+.viz-chart-head{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.viz-chart-head button{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:9px 13px;cursor:pointer}
+#complexPlane{display:block;width:100%;height:440px;background:#0c1628;border:1px solid #334155;border-radius:12px;touch-action:none;cursor:crosshair}
+.viz-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.viz-stat{background:#111c30;padding:14px;border-radius:10px;min-width:0}
+.viz-stat strong{display:block;font-size:13px;margin-bottom:9px}.viz-stat div{font-family:Consolas,monospace;font-size:13px;overflow-wrap:anywhere;line-height:1.6}
+.viz-error{padding:12px;border-radius:8px;background:#7f1d1d;color:#fecaca}
+@media(max-width:1050px){.viz-layout{grid-template-columns:1fr}.viz-inputs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.viz-inputs,.viz-results{grid-template-columns:1fr}#complexPlane{height:320px}.viz-card{padding:16px}}

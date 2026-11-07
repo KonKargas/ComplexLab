@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ComplexLab | Calculator</title>
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+	<link rel="shortcut icon" href="images/favicon.ico?v=2">
+
+    <link rel="stylesheet" th:href="@{/css/DashboardStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/CalculatorStyle.css}">
+</head>
+<body>
+
+<div class="app-layout">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar('calculator')}"></div>
+    <div class="app-main">
+        <div th:replace="~{fragments/topbar :: topbar('Complex Number Operations')}"></div>
+        <main class="app-content">
+            <div class="calculator-container">
+
+    <header class="page-header">
+        <h1>Complex Number Calculator</h1>
+        <p>Calculate with real and imaginary components.</p>
+    </header>
+
+    <section class="calculator-card">
+
+        <form th:action="@{/calculator}"
+              th:object="${calculationRequest}"
+              method="post">
+
+            <div class="numbers-grid">
+
+                <div class="number-panel">
+                    <h2>Complex Number A</h2>
+
+                    <label for="firstReal">Real Part</label>
+                    <input id="firstReal" type="number" step="any"
+                           th:field="*{first.real}"
+                           placeholder="e.g. 3">
+
+                    <label for="firstImaginary">Imaginary Part</label>
+                    <input id="firstImaginary" type="number" step="any"
+                           th:field="*{first.imaginary}"
+                           placeholder="e.g. 2">
+                </div>
+
+                <div class="number-panel">
+                    <h2>Complex Number B</h2>
+
+                    <label for="secondReal">Real Part</label>
+                    <input id="secondReal" type="number" step="any"
+                           th:field="*{second.real}"
+                           placeholder="e.g. 1">
+
+                    <label for="secondImaginary">Imaginary Part</label>
+                    <input id="secondImaginary" type="number" step="any"
+                           th:field="*{second.imaginary}"
+                           placeholder="e.g. -4">
+                </div>
+
+            </div>
+
+            <div class="operation-panel">
+                <label for="operation">Operation</label>
+
+                <select id="operation" th:field="*{operation}">
+                    <option th:each="op : ${operations}"
+                            th:value="${op}"
+                            th:text="${op}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="validation-errors"
+                 th:if="${#fields.hasErrors()}">
+                <p th:each="error : ${#fields.errors('*')}"
+                   th:text="${error}"></p>
+            </div>
+
+            <button type="submit" class="calculate-button">
+                Calculate
+            </button>
+
+        </form>
+
+        <div class="result-panel"
+             th:if="${calculationResult != null}">
+
+            <h2>Calculation Result</h2>
+
+            <p class="result-value"
+               th:text="${calculationResult.formattedResult}">
+            </p>
+        </div>
+
+        <div class="error-panel"
+             th:if="${calculationError != null}"
+             th:text="${calculationError}">
+        </div>
+
+    </section>
+
+            </div>
+        </main>
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+
+<script th:src="@{/js/Dashboard.js}" defer></script>
+</body>
+</html>

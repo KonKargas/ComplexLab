@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<aside class="app-sidebar" id="appSidebar"
+       th:fragment="sidebar(activePage)">
+
+    <a class="sidebar-brand" th:href="@{/}" aria-label="ComplexLab home">
+        <img class="brand-logo"
+             th:src="@{/images/Logo_large.png}"
+             src="/images/Logo_large.png"
+             alt="ComplexLab logo">
+    </a>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+    
+    		<div class="sidebar-section">WORKSPACE</div>
+
+        <a th:href="@{/}"
+           class="sidebar-link"
+           th:classappend="${activePage == 'dashboard'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'dashboard'} ? 'page' : null">
+            <img class="nav-icon-img" th:src="@{/icons/sidebar/dashboard.png}" src="/icons/sidebar/dashboard.png" alt="">
+            <span>Dashboard</span>
+        </a>
+
+        <div class="sidebar-section">CALCULATORS</div>
+
+        <a th:href="@{/calculator}"
+           class="sidebar-link"
+           th:classappend="${activePage == 'calculator'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'calculator'} ? 'page' : null">
+            <img class="nav-icon-img" th:src="@{/icons/sidebar/operations.png}" src="/icons/sidebar/operations.png" alt="">
+            <span>Complex Number Operations</span>
+        </a>
+
+        <a th:href="@{/matrix}"
+           class="sidebar-link"
+           th:classappend="${activePage == 'matrix'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'matrix'} ? 'page' : null">
+            <img class="nav-icon-img" th:src="@{/icons/sidebar/matrix-operations.png}" src="/icons/sidebar/matrix-operations.png" alt="">
+            <span>Complex Matrix Operations</span>
+        </a>
+
+        <div class="sidebar-section">VISUALIZERS</div>
+
+        <a th:href="@{/visualizer}"
+           class="sidebar-link"
+           th:classappend="${activePage == 'visualizer'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'visualizer'} ? 'page' : null">
+            <img class="nav-icon-img" th:src="@{/icons/sidebar/complex-visualizer.png}" src="/icons/sidebar/complex-visualizer.png" alt="">
+            <span>Complex Number Visualizer</span>
+        </a>
+
+        <a th:href="@{/matrix-visualizer}"
+           class="sidebar-link"
+           th:classappend="${activePage == 'matrix-visualizer'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'matrix-visualizer'} ? 'page' : null">
+            <img class="nav-icon-img" th:src="@{/icons/sidebar/visualize-matrix.png}" src="/icons/sidebar/visualize-matrix.png" alt="">
+            <span>Complex Matrix Visualizer</span>
+        </a>
+
+        <div class="sidebar-section">HISTORY</div>
+
+        <a th:href="@{/history}"
+           class="sidebar-link"
+           th:classappend="${activePage == 'history'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'history'} ? 'page' : null">
+            <img class="nav-icon-img" th:src="@{/icons/sidebar/history.png}" src="/icons/sidebar/history.png" alt="">
+            <span>Calculation History</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <span>MATHEMATICAL WORKSPACE</span>
+        <small>ComplexLab v2.0</small>
+    </div>
+
+</aside>
+
+</body>
+</html>

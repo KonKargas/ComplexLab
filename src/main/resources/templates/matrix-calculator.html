@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ComplexLab | Matrix Operations</title>
+<link rel="stylesheet" th:href="@{/css/DashboardStyle.css}">
+<link rel="stylesheet" th:href="@{/css/CalculatorStyle.css}">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+	<link rel="shortcut icon" href="images/favicon.ico?v=2">
+<link rel="stylesheet" th:href="@{/css/MatrixCalculatorStyle.css}">
+</head>
+<body><div class="app-layout"><div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div th:replace="~{fragments/sidebar :: sidebar('matrix')}"></div>
+<div class="app-main"><div th:replace="~{fragments/topbar :: topbar('Matrix Operations')}"></div>
+<main class="app-content"><div class="calculator-container">
+<header class="page-header"><h1>Matrix Operations</h1><p>Complex matrix arithmetic, algebra and transformations.</p></header>
+<section class="calculator-card">
+<form th:action="@{/matrix}" th:object="${matrixRequest}" method="post" id="matrixForm">
+<p class="format-help">Enter each row on a separate line, separating cells with spaces. Each cell uses <code>real:imaginary</code>, for example <code>3:-2</code> for 3 − 2i. Maximum 10×10.</p>
+<div class="operation-panel"><label for="operation">Operation</label>
+<select id="operation" th:field="*{operation}"><option th:each="op : ${operations}" th:value="${op}" th:text="${op.label}"></option></select></div>
+<div class="numbers-grid">
+<div class="number-panel"><h2>Matrix A</h2><textarea th:field="*{matrixA}" rows="6" spellcheck="false" aria-label="Matrix A"></textarea></div>
+<div class="number-panel" id="matrixBPanel"><h2>Matrix B</h2><textarea th:field="*{matrixB}" rows="6" spellcheck="false" aria-label="Matrix B"></textarea></div>
+</div>
+<div class="matrix-options">
+<div id="powerOptions" class="matrix-option" hidden><label for="exponent">Non-negative exponent (0–20)</label><input type="number" min="0" max="20" th:field="*{exponent}"></div>
+<div id="scalarOptions" class="matrix-option" hidden><label>Scalar (real / imaginary)</label><div class="option-fields"><input type="number" step="any" aria-label="Scalar real" th:field="*{scalarReal}"><input type="number" step="any" aria-label="Scalar imaginary" th:field="*{scalarImaginary}"></div></div>
+<div id="randomOptions" class="matrix-option" hidden><label>Random value range (minimum / maximum)</label><div class="option-fields"><input type="number" step="any" aria-label="Random minimum" th:field="*{randomMin}"><input type="number" step="any" aria-label="Random maximum" th:field="*{randomMax}"></div></div>
+</div>
+<div class="validation-errors" th:if="${#fields.hasErrors()}"><p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p></div>
+<button type="submit" class="calculate-button">Calculate Matrix</button>
+</form>
+<div class="result-panel" th:if="${matrixResult != null or scalarResult != null}" aria-live="polite">
+<h2 th:text="${operationLabel != null ? operationLabel : 'Calculation Result'}">Result</h2>
+<th:block th:if="${matrixResult != null}"><p class="matrix-dimensions" th:text="|${matrixResult.rows} × ${matrixResult.cols}|"></p><pre class="matrix-result" th:text="${matrixResult.toString()}"></pre></th:block>
+<p class="result-value" th:if="${scalarResult != null}" th:text="${scalarResult.toString()}"></p>
+</div>
+<div class="error-panel" th:if="${matrixError != null}" th:text="${matrixError}" role="alert"></div>
+</section></div></main><div th:replace="~{fragments/footer :: footer}"></div></div></div>
+<script th:src="@{/js/Dashboard.js}" defer></script><script th:src="@{/js/MatrixOperations.js}" defer></script>
+</body></html>

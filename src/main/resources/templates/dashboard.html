@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ComplexLab | Dashboard</title>
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+
+    <link rel="stylesheet"
+          th:href="@{/css/DashboardStyle.css}">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div th:replace="~{fragments/sidebar :: sidebar('dashboard')}"></div>
+
+    <div class="app-main">
+
+        <div th:replace="~{fragments/topbar :: topbar('Dashboard')}"></div>
+
+        <main class="app-content">
+
+            <div class="content-heading">
+                <h2>Welcome to ComplexLab</h2>
+                <p>
+                    Your interactive workspace for complex
+                    numbers and matrix calculations.
+                </p>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <article class="dashboard-card">
+                    <div class="dashboard-card-icon">∑</div>
+
+                    <h3>Complex Number Operations</h3>
+
+                    <p>
+                        Perform addition, subtraction,
+                        multiplication and division
+                        using complex numbers.
+                    </p>
+
+                    <a th:href="@{/calculator}"
+                       class="dashboard-card-link">
+                        Open Calculator
+                        <span aria-hidden="true">→</span>
+                    </a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="dashboard-card-icon">▦</div>
+
+                    <h3>Matrix Operations</h3>
+
+                    <p>
+                        Work with complex matrices,
+                        perform calculations and
+                        explore matrix algebra.
+                    </p>
+
+                    <a th:href="@{/matrix}"
+                       class="dashboard-card-link">
+                        Open Matrix Calculator
+                        <span aria-hidden="true">→</span>
+                    </a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="dashboard-card-icon">◉</div>
+                    <h3>Complex Number Visualizer</h3>
+                    <p>Plot complex numbers as vectors in the complex plane and explore magnitudes and angles.</p>
+                    <a th:href="@{/visualizer}" class="dashboard-card-link">Open Complex Visualizer <span aria-hidden="true">→</span></a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="dashboard-card-icon">▦</div>
+                    <h3>Matrix Visualizer</h3>
+                    <p>Explore complex matrix elements using magnitude heatmaps and a selected cell on the complex plane.</p>
+                    <a th:href="@{/matrix-visualizer}" class="dashboard-card-link">Open Matrix Visualizer <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+
+            <section class="dashboard-info">
+                <h3>About ComplexLab</h3>
+
+                <p>
+                    ComplexLab is a mathematical computing
+                    application developed using Java,
+                    Spring Boot and Thymeleaf.
+                </p>
+
+                <p>
+                    It provides an interactive environment
+                    for working with complex numbers
+                    and complex matrices.
+                </p>
+            </section>
+
+        </main>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </div>
+
+</div>
+
+<script th:src="@{/js/Dashboard.js}" defer></script>
+
+</body>
+</html>

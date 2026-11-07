@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ComplexLab | Matrix Visualizer</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+	<link rel="shortcut icon" href="images/favicon.ico?v=2">
+    <link rel="stylesheet" th:href="@{/css/DashboardStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/MatrixVisualizerStyle.css}">
+</head>
+<body>
+<div class="app-layout">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar('matrix-visualizer')}"></div>
+    <div class="app-main">
+        <div th:replace="~{fragments/topbar :: topbar('Matrix Visualizer')}"></div>
+        <main class="app-content">
+            <div class="content-heading">
+                <h2>Matrix Visualizer</h2>
+                <p>Visualize the real and imaginary components of complex matrix elements.</p>
+            </div>
+            <div class="matrix-viz-layout">
+                <section class="matrix-viz-card matrix-viz-controls">
+                    <h3>Matrix input</h3>
+                    <label for="matrixInput">Complex matrix</label>
+                    <textarea id="matrixInput" rows="7" spellcheck="false" aria-describedby="matrixFormat">1:2 3:0 0:-1&#10;2:-1 4:3 -2:0&#10;0:2 1:-2 3:4</textarea>
+                    <p id="matrixFormat" class="matrix-viz-help">One row per line, spaces between cells. Each cell uses <code>real:imaginary</code>. Maximum 10 × 10.</p>
+                    <label for="matrixMode">Heatmap value</label>
+                    <select id="matrixMode">
+                        <option value="magnitude">Magnitude |z|</option>
+                        <option value="real">Real part Re(z)</option>
+                        <option value="imaginary">Imaginary part Im(z)</option>
+                        <option value="phase">Argument arg(z) (degrees)</option>
+                    </select>
+                    <div class="matrix-viz-actions">
+                        <button type="button" id="matrixSample">Load example</button>
+                        <button type="button" id="matrixClear" class="secondary">Zero matrix</button>
+                    </div>
+                    <div id="matrixVizError" role="alert" class="matrix-viz-error" hidden></div>
+                    <p class="matrix-viz-help">Click a cell to inspect its complex value and position in the complex plane.</p>
+                </section>
+                <section class="matrix-viz-card matrix-viz-display">
+                    <div class="matrix-viz-title">
+                        <h3>Complex matrix heatmap</h3>
+                        <span id="matrixDimensions" class="matrix-viz-meta">3 × 3</span>
+                    </div>
+                    <div class="matrix-viz-scroll">
+                        <div id="matrixHeatmap" class="matrix-heatmap" role="group" aria-label="Interactive complex matrix heatmap"></div>
+                    </div>
+                    <div class="matrix-viz-legend"><span id="legendMin">0</span><div id="matrixLegend" class="matrix-viz-gradient"></div><span id="legendMax">5</span></div>
+                    <p id="heatmapDescription" class="matrix-viz-help">Brighter cells represent larger magnitudes.</p>
+                </section>
+                <section class="matrix-viz-card matrix-viz-detail">
+                    <div class="matrix-viz-title"><h3>Selected element</h3><span id="selectedPosition" class="matrix-viz-meta">A[1,1]</span></div>
+                    <div id="selectedValue" class="matrix-viz-value">1 + 2i</div>
+                    <div class="matrix-viz-stats">
+                        <div><span>Real part</span><strong id="selectedReal">1</strong></div>
+                        <div><span>Imaginary part</span><strong id="selectedImaginary">2</strong></div>
+                        <div><span>Magnitude</span><strong id="selectedMagnitude">2.236</strong></div>
+                        <div><span>Argument</span><strong id="selectedArgument">63.435°</strong></div>
+                    </div>
+                    <canvas id="matrixComplexPlane" role="img" aria-label="Selected matrix element plotted on the complex plane"></canvas>
+                </section>
+            </div>
+        </main>
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+<script th:src="@{/js/Dashboard.js}" defer></script>
+<script th:src="@{/js/MatrixVisualizer.js}" defer></script>
+</body>
+</html>

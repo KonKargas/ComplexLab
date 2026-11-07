@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ComplexLab | Calculation History</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+	<link rel="shortcut icon" href="images/favicon.ico?v=2">
+    <link rel="stylesheet" th:href="@{/css/DashboardStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/HistoryStyle.css}">
+</head>
+<body>
+<div class="app-layout">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar('history')}"></div>
+    <div class="app-main">
+        <div th:replace="~{fragments/topbar :: topbar('Calculation History')}"></div>
+        <main class="app-content">
+            <div class="content-heading">
+                <h2>Calculation History</h2>
+                <p>Previously calculated complex numbers and matrices, saved in SQLite.</p>
+            </div>
+            <p class="history-message" th:if="${message}" th:text="${message}"></p>
+            <nav class="history-filters" aria-label="History filters">
+                <a th:href="@{/history}" th:classappend="${selectedType == null} ? 'active' : ''">All</a>
+                <a th:href="@{/history(type='COMPLEX_NUMBER')}"
+                   th:classappend="${selectedType != null and selectedType.name() == 'COMPLEX_NUMBER'} ? 'active' : ''">Complex numbers</a>
+                <a th:href="@{/history(type='MATRIX')}"
+                   th:classappend="${selectedType != null and selectedType.name() == 'MATRIX'} ? 'active' : ''">Matrices</a>
+            </nav>
+            <p class="history-empty" th:if="${records.empty}">No calculations found. Try a calculator to create your first record.</p>
+            <div class="history-list" th:unless="${records.empty}">
+                <article class="history-item" th:each="record : ${records.content}">
+                    <div class="history-head">
+                        <div>
+                            <span class="history-type" th:text="${record.calculationType.name() == 'MATRIX' ? 'Matrix' : 'Complex number'}"></span>
+                            <strong th:text="${record.operation}">ADD</strong>
+                        </div>
+                        <time th:text="${#temporals.format(record.createdAt,'dd/MM/yyyy HH:mm')}"></time>
+                    </div>
+                    <div class="history-values">
+                        <div><span>Input A</span><pre th:text="${record.inputA}"></pre></div>
+                        <div th:if="${record.inputB != null}"><span>Input B / Options</span><pre th:text="${record.inputB}"></pre></div>
+                        <div class="history-result"><span>Result</span><pre th:text="${record.result}"></pre></div>
+                    </div>
+                    <form th:action="@{/history/{id}/delete(id=${record.id})}" method="post"
+                          onsubmit="return confirm('Delete this calculation?');">
+                        <button type="submit" class="history-delete">Delete</button>
+                    </form>
+                </article>
+            </div>
+            <nav class="history-pagination" th:if="${records.totalPages > 1}" aria-label="History pages">
+                <a th:if="${records.hasPrevious()}"
+                   th:href="@{/history(page=${records.number - 1},type=${selectedType})}">Previous</a>
+                <span th:text="|Page ${records.number + 1} of ${records.totalPages}|">Page 1</span>
+                <a th:if="${records.hasNext()}"
+                   th:href="@{/history(page=${records.number + 1},type=${selectedType})}">Next</a>
+            </nav>
+        </main>
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+<script th:src="@{/js/Dashboard.js}" defer></script>
+</body>
+</html>
