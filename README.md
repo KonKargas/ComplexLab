@@ -1,127 +1,138 @@
 <div align="center">
 
-<img src="src/main/resources/static/images/Logo_large.png" alt="ComplexLab logo" width="720" />
+<img src="src/main/resources/static/images/Logo_large.png" alt="ComplexLab Logo" width="600" />
 
 # ComplexLab
 
-**An interactive Java & Spring Boot workspace for complex numbers and complex matrices.**
+### Complex Number & Matrix Mathematics Platform
 
-Built around a university assignment originally developed in **2019**, extended into a responsive web application with interactive visualizers and persistent calculation history.
+**An interactive mathematical workspace for complex arithmetic, advanced matrix operations, visual exploration, and calculation history.**
 
-[Features](#features) · [Screenshots](#screenshots) · [Getting started](#getting-started) · [Project structure](#project-structure)
+Java 21 · Spring Boot 4.1.2 · Thymeleaf · JavaScript · SQLite · Maven
+
+[Overview](#overview) · [Core Features](#core-features) · [Screenshots](#application-screenshots) · [Installation](#installation--usage) · [Architecture](#application-architecture)
 
 </div>
 
+---
+
 ## Overview
 
-ComplexLab focuses on **complex arithmetic** and **operations on matrices whose entries are complex numbers**. It combines a reusable mathematical core with a Spring Boot backend, server-rendered Thymeleaf pages, a responsive dashboard, and interactive visualizations in JavaScript.
+**ComplexLab** is a full-stack web application for working with **complex numbers** and **matrices of complex numbers**. It brings together a Java mathematical engine, Spring Boot MVC, a responsive Thymeleaf interface, interactive browser-based visualizers, and a local SQLite calculation history.
 
-## Features
+The project builds on a university assignment first developed in **2019**, expanding the original mathematical functionality into a modern web application for experimentation and visual learning.
 
-### Complex Number Calculator
+## Core Features
 
-- Add, subtract, multiply, and divide complex numbers.
-- Validate real and imaginary inputs and show formatted results.
-- Save successful calculations to local history.
+| Module | Capabilities |
+| --- | --- |
+| **Complex Number Calculator** | Addition, subtraction, multiplication, and division of complex numbers, with input validation and formatted results. |
+| **Complex Matrix Calculator** | Matrix addition, subtraction, multiplication, complex-scalar multiplication, transpose, and conjugate transpose. |
+| **Advanced Matrix Operations** | Determinant, trace, inverse (where defined), powers, identity matrices, and random matrix generation. |
+| **Complex Number Visualizer** | Interactive Argand plane with draggable vector endpoints, adjustable scale, magnitude, and argument. |
+| **Complex Matrix Visualizer** | Heatmap representation of complex matrix entries, with real/imaginary, magnitude, and argument views and selected-cell inspection. |
+| **Calculation History** | SQLite-backed storage for successful computations, filtering by calculation type, and record deletion. |
+| **Responsive Interface** | Dashboard, navigation sidebar, shared Thymeleaf layout fragments, and custom PNG iconography. |
 
-### Complex Matrix Calculator
+### Matrix Input and Validation
 
-- Add, subtract, and multiply matrices of complex numbers.
-- Multiply a matrix by a complex scalar.
-- Transpose and conjugate transpose.
-- Compute the determinant, trace, and inverse where mathematically defined.
-- Compute powers, identity matrices, and randomized matrices.
-- Validate dimensions and input format (up to **10 × 10** for entered matrices).
-- Save successful calculations to local history.
+Matrices entered in the calculator support dimensions up to **10 × 10**. Each matrix row occupies one line, with values separated by spaces. Complex values follow the `real:imaginary` format; for example, `3:-2` represents `3 − 2i`.
 
-> **Matrix input format:** each row goes on a separate line, entries are separated by spaces, and each entry has the form `real:imaginary`. For example, `3:-2` represents `3 − 2i`.
+Operations are validated against mathematical requirements, including compatible matrix dimensions and invertibility where applicable.
 
-### Complex Number Visualizer
-
-- Plot complex numbers on the Argand plane.
-- Visualize addition, subtraction, and multiplication as vectors.
-- Drag vector endpoints to change values and adjust the graph scale.
-- Inspect magnitude and argument.
-
-### Complex Matrix Visualizer
-
-- Visualize a matrix of complex entries using an interactive heatmap.
-- Compare real and imaginary parts, magnitude, and argument.
-- Inspect a selected cell on the complex plane.
-
-### Calculation History
-
-- Automatically persist successful calculations in a **local SQLite database**.
-- Browse history by newest entry and filter by complex-number or matrix calculations.
-- Remove unwanted records.
-
-### Application UI
-
-- Responsive dashboard with sidebar and reusable Thymeleaf fragments for navigation, topbar, and footer.
-- Custom PNG navigation icons and a branded logo.
-
-## Screenshots
-
-Screenshots can be added to [`docs/screenshots/`](docs/screenshots/). The section below is ready to use once you capture images from the running application.
-
-<!-- Uncomment each image as soon as its PNG file is added to docs/screenshots/.
+## Application Screenshots
 
 ### Dashboard
-![ComplexLab dashboard](docs/screenshots/dashboard.png)
 
-### Complex Number Calculator
-![Complex number operations](docs/screenshots/complex-number-calculator.png)
+The main navigation dashboard provides access to the mathematical tools, visualizers, and calculation history.
 
-### Complex Matrix Calculator
-![Complex matrix operations](docs/screenshots/matrix-calculator.png)
+![ComplexLab Dashboard](docs/screenshots/dashboard.png)
+
+### Complex Number Operations
+
+Calculate arithmetic expressions involving complex numbers.
+
+![Complex Number Operations](docs/screenshots/complex-number-operations.png)
+
+### Complex Matrix Operations
+
+Perform standard and advanced operations on matrices with complex entries.
+
+![Complex Matrix Operations](docs/screenshots/complex-matrix-operations.png)
 
 ### Complex Number Visualizer
-![Complex number visualizer](docs/screenshots/complex-number-visualizer.png)
+
+Explore the geometric interpretation of complex numbers on an interactive complex plane.
+
+![Complex Number Visualizer](docs/screenshots/complex-number-visualizer.png)
 
 ### Complex Matrix Visualizer
-![Complex matrix visualizer](docs/screenshots/matrix-visualizer.png)
+
+Examine matrix entries through graphical representations and interactive inspection.
+
+![Complex Matrix Visualizer](docs/screenshots/complex-matrix-visualizer.png)
 
 ### Calculation History
-![Calculation history](docs/screenshots/calculation-history.png)
 
--->
+Review and manage previously saved calculations.
 
-**Suggested screenshots:** Dashboard, Complex Number Calculator, Complex Matrix Calculator, both Visualizers, and Calculation History. See the [screenshots guide](docs/screenshots/README.md) for the exact filenames.
+![Calculation History](docs/screenshots/history.png)
 
-## Tech stack
+---
+
+## Technology Stack
 
 | Layer | Technology |
 | --- | --- |
-| Language | Java 21 |
-| Backend | Spring Boot 4.1.2, Spring MVC |
-| Views | Thymeleaf, HTML, CSS |
-| Client-side interactions | Vanilla JavaScript / Canvas |
-| Persistence | Spring Data JPA, Hibernate ORM, SQLite JDBC |
-| Build | Maven / Maven Wrapper |
-| Tests | JUnit / Spring Boot Test |
+| **Programming Language** | Java 21 |
+| **Backend** | Spring Boot 4.1.2, Spring MVC |
+| **Frontend** | Thymeleaf, HTML, CSS, JavaScript |
+| **Interactive Visualization** | Vanilla JavaScript, HTML Canvas |
+| **Persistence** | SQLite, Spring Data JPA, Hibernate ORM, SQLite JDBC |
+| **Build & Dependencies** | Maven, Maven Wrapper |
+| **Testing** | JUnit, Spring Boot Test |
 
-## Getting started
+## Application Architecture
 
-### Prerequisites
+The project separates mathematical logic, request processing, persistence, and presentation into dedicated layers:
 
-- **JDK 21 or later** (the Maven project targets Java 21)
-- **Maven** (or the included Maven Wrapper)
-- A browser
+- **Controllers** handle web routes, user input, and view rendering.
+- **DTOs and enums** represent requests, responses, and available mathematical operations.
+- **Models and services** implement complex arithmetic, matrix calculations, and calculation-history logic.
+- **Repositories** persist history entries to SQLite.
+- **Thymeleaf templates and JavaScript** provide the responsive interface and visual interactions.
 
-### 1. Clone the repository
+### Application Pages
+
+| Page | Route |
+| --- | --- |
+| Dashboard | `/` |
+| Complex Number Calculator | `/calculator` |
+| Complex Matrix Calculator | `/matrix` |
+| Complex Number Visualizer | `/visualizer` |
+| Complex Matrix Visualizer | `/matrix-visualizer` |
+| Calculation History | `/history` |
+
+## Installation & Usage
+
+### Requirements
+
+- **JDK 21** or newer (the project targets Java 21).
+- A browser.
+- Maven, or the Maven Wrapper included in the repository.
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/KonKargas/ComplexLab.git
 cd ComplexLab
 ```
 
-> This example assumes the repository is published at `KonKargas/ComplexLab`. Update the URL if you choose a different repository name.
+### 2. Prepare Local Storage
 
-### 2. Create the local database directory
+The repository contains a `data/` directory. Make sure this directory exists and is writable. The SQLite database file, `data/complexlab.db`, is created on first startup and is not tracked in Git.
 
-The directory `data/` is included in the repository with a `.gitkeep` file. The database file itself is **not** committed. The SQLite JDBC driver will create `data/complexlab.db` on first startup, provided that the directory exists and is writable.
-
-### 3. Run the application
+### 3. Run the Application
 
 **Windows:**
 
@@ -135,7 +146,7 @@ The directory `data/` is included in the repository with a `.gitkeep` file. The 
 ./mvnw spring-boot:run
 ```
 
-Or use Maven directly:
+Alternatively, with an installed Maven distribution:
 
 ```bash
 mvn spring-boot:run
@@ -143,69 +154,70 @@ mvn spring-boot:run
 
 Open **http://localhost:8080/** in your browser.
 
-> The local SQLite path is relative to the application's working directory. If running from an IDE, make sure the working directory is the project root. Optionally override the database URL with the `COMPLEXLAB_DB_URL` environment variable (for example, `jdbc:sqlite:/absolute/path/complexlab.db`).
+> **Database configuration:** The SQLite database path is relative to the working directory. Run the application from the repository root, or configure `COMPLEXLAB_DB_URL` to override the connection string (e.g. `jdbc:sqlite:/absolute/path/complexlab.db`).
 
-### 4. Run tests
+### 4. Run Tests
 
 ```bash
 ./mvnw test
 ```
 
-On Windows use `mvnw.cmd test` instead.
+On Windows, use `.\mvnw.cmd test`.
 
-## Pages
-
-| Page | Route |
-| --- | --- |
-| Dashboard | `/` |
-| Complex Number Calculator | `/calculator` |
-| Complex Matrix Calculator | `/matrix` |
-| Complex Number Visualizer | `/visualizer` |
-| Complex Matrix Visualizer | `/matrix-visualizer` |
-| Calculation History | `/history` |
-
-## Project structure
+## Project Structure
 
 ```text
 ComplexLab/
-├── data/                      # Local SQLite database (ignored by Git)
-├── docs/screenshots/          # App screenshot gallery
+├── data/                                # Local SQLite storage directory
+├── docs/
+│   └── screenshots/                     # Application screenshots
 ├── src/
 │   ├── main/
 │   │   ├── java/com/kkargas/complexlab/
-│   │   │   ├── controller/    # MVC controllers
-│   │   │   ├── dto/           # Form and response models
-│   │   │   ├── enums/         # Available operations
-│   │   │   ├── model/         # Complex arithmetic, matrices, history entity
-│   │   │   ├── repository/    # History persistence
-│   │   │   └── service/       # Mathematical and persistence services
+│   │   │   ├── controller/             # MVC endpoints
+│   │   │   ├── dto/                    # Input/output models
+│   │   │   ├── enums/                  # Supported operations
+│   │   │   ├── model/                  # Math and persistence models
+│   │   │   ├── repository/             # Data access
+│   │   │   └── service/                # Business and math logic
 │   │   └── resources/
-│   │       ├── static/        # CSS, JavaScript, PNG icons, logo
-│   │       ├── templates/     # Pages and shared Thymeleaf fragments
+│   │       ├── static/                 # CSS, JS, application logo and icons
+│   │       ├── templates/              # Views and layout fragments
 │   │       └── application.properties
-│   └── test/                  # Unit and application tests
+│   └── test/                            # Automated tests
 ├── .gitignore
 ├── pom.xml
 ├── mvnw
-└── mvnw.cmd
+├── mvnw.cmd
+└── README.md
 ```
 
-## Data & privacy
+## Data & Privacy
 
-Calculation history is stored locally in **`data/complexlab.db`**. This file, its SQLite journals, build outputs, and IDE metadata are excluded via `.gitignore` and are not part of the published source archive.
+Calculation history is saved **locally** in `data/complexlab.db`. The database, its journals, generated build artifacts, and IDE-specific files are excluded from the public repository.
 
-Back up the database before changing your schema or deleting local application data. The project currently uses `spring.jpa.hibernate.ddl-auto=update`, which is convenient for development but is not a replacement for production database migrations.
+The current application uses `spring.jpa.hibernate.ddl-auto=update` to simplify local development. Before changing schemas or deleting data, back up your local database. A production deployment would benefit from controlled schema migrations.
 
-## Project background
+## Project Background
 
-ComplexLab is a modern web-based continuation of an academic project from 2019. The main goal remains the same: make it easy to calculate with **complex numbers and matrices of complex numbers**, with practical visual feedback and an optional calculation history.
+ComplexLab began as an academic programming assignment in **2019**. The current version retains its mathematical focus while extending it with a web interface, richer operations, graphical tools, and persistent history. It demonstrates full-stack Java development alongside reusable mathematical modeling.
+
+## Repository Scope & Licensing
+
+This repository provides the application's source code, Maven build files, and documentation. Local calculation-history data is not included.
+
+**No license has been selected for this repository.** Unless a license is added, the code should not be assumed to be licensed for redistribution or reuse.
+
+---
 
 ## Author
 
-Developed by **Konstantinos Kargas**  
-Website: [kkargas.com](https://kkargas.com)  
-GitHub: [KonKargas](https://github.com/KonKargas)
+**Konstantinos Kargas**  
+Full-Stack Software Engineer
 
-## License
+- Website: [kkargas.com](https://kkargas.com)
+- GitHub: [KonKargas](https://github.com/KonKargas)
 
-No license has been selected for this repository yet. A license file can be added when a distribution license is chosen.
+---
+
+*ComplexLab — advanced complex mathematics, interactive visualization, and organized calculation history.*
